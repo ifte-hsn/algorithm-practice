@@ -102,9 +102,21 @@ class SList {
 			return null;
 		}
 		
+		
+		
 		SLinkedListNode current = head;
 		SLinkedListNode prev = null;
 		
+		
+		
+		if(size == 1) {
+			Object item = head.item;
+			head = null;
+			size--;
+			return item;
+		}
+
+
 		while(current.next != null) {
 			prev = current;
 			current = current.next;
