@@ -85,7 +85,6 @@ class SList {
 	public void pushBack(Object item) {
 		if(head == null) {
 			pushFront(item);
-			size++;
 			return;
 		}
 		
@@ -117,14 +116,142 @@ class SList {
 	}
 	
 	public Object front() {
+		if(head == null) {
+			System.out.println("List is empty");
+			return null;
+		}
 		return head.item;
 	}
 	
 	public Object back() {
+		if(head == null) {
+			System.out.println("List is empty");
+			return null;
+		}
+		
 		SLinkedListNode temp = head;
 		while(temp.next != null) {
 			temp = temp.next;
 		}
 		return temp.item;
+	}
+	
+	public void insert(int index, Object item) {
+		if(head == null) {
+			pushFront(item);
+			return;
+		}
+		
+		if(index > size) {
+			pushBack(item);
+			return;
+		}
+		
+		
+		if(index == 1) {
+			pushFront(item);
+			return;
+		}
+		
+		SLinkedListNode prev = null;
+		SLinkedListNode current = head;
+		
+		for(int i = 1; i<index; i++) {
+			prev = current;
+			current = current.next;
+		}
+		
+		prev.next = new SLinkedListNode(item, current);
+		size++;
+	}
+	
+	
+	public Object erase(int index) {
+		if(head == null) {
+			System.out.println("List is empty");
+			return null;
+		}
+		
+		SLinkedListNode current = head;
+		SLinkedListNode prev = null;
+		
+		if(index == 1) {
+			return popFront();
+		}
+		
+		for(int i = 1; i <= index-1; i++) {
+			prev = current;
+			current = current.next;
+		}
+		
+		Object item = current.item;
+		
+		prev.next = current.next;
+		size--;
+		
+		return item;
+	}
+	
+	public Object valueNfromEnd(int index) {
+		if(head == null) {
+			System.out.println("List is empty");
+			return null;
+		}
+		
+		if(index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		int indexToShow = size - index;
+		SLinkedListNode temp = head;
+		
+		for(int i = 1; i<= indexToShow; i++) {
+			temp = temp.next;
+		}
+		
+		return temp.item;
+	}
+	
+	public void reverse() {
+		
+		if(head == null) {
+			System.out.println("List is empty");
+			return;
+		}
+		
+		SLinkedListNode prev = null;
+		SLinkedListNode next = null;
+		SLinkedListNode current = head;
+		
+		while(current != null) {
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+		}
+		
+		head = prev;
+	}
+	
+	public void removeValue(Object value) {
+		if(head == null) {
+			System.out.println("List is empty");
+			return;
+		}
+		
+		SLinkedListNode prev = null;
+		SLinkedListNode current = head;
+		
+		while(current.next != null) {
+			if(current.item.equals(value)) {
+				prev.next = current.next;
+				size--;
+				return;
+			}
+			
+			prev = current;
+			current = current.next;
+			
+		}
 	}
 }
