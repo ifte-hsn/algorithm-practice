@@ -266,4 +266,9 @@ class SList {
 			
 		}
 	}
+	
+	public void clear() {
+		head = null;
+		size = 0;
+	}
 }
